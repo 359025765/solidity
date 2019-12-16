@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  node:
+    image: node
+    container_name: node
+    build:
+      context: ./
+    volumes:
+      - ./:/home/app/solidity
+    ports:
+      - "3000:3000"
+    tty: true
+
