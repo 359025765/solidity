@@ -14,12 +14,12 @@
 
 `solcjs --version` 查看版本
 
-## Solidity练习-植物大战僵尸
+## Solidity练习-植物大战僵尸实例
 >本文只把跟重要的知识点相关的代码记录下来，方便加深记忆，对应的完整代码在resource目录下。
-- [Chapter1 Making the Zombie Factory](##Chapter1)
-- [Chapter2 Zombies Attack Their Victims](##Chapter2)
+- [Chapter1 Making the Zombie Factory](#Chapter1)
+- [Chapter2 Zombies Attack Their Victims](#Chapter2)
 
-## Chapter1
+# Chapter1
 建立一个名为`ZombieFactory`的智能合约，并创建个16位的DNA。
 ```javascript
 pragma solidity >=0.5.0 <0.6.0;  // 指定solidity版本
@@ -75,7 +75,7 @@ var event = myContract.transfer(function(e, r) {
 event.stopWatching(); // 终止事件监听
 ```
 
-## Chapter2
+# Chapter2
 `address`：地址类型存储一个20字节，每个账号都有一个地址，你可以将其视为银行账号。它是你的唯一标识符，例如：`0x0cE446255506E92DF41614C46F1d6df9Cc969183`。在本节测试中，你需要声明一个`mapping`（映射）数据结构，key值是`address`value为`uint`，映射是一种存储有组织数据的方法。
 ```javascript
 mapping (uint => address) public zombieToOwner;
