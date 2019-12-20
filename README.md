@@ -28,7 +28,7 @@ contract ZombieFactory {  // 创建一个僵尸工厂
     uint dnaModulus = 10 ** dnaDigits;  // 为了确保僵尸的DNA为16位字符，等于10^16
 }
 ```
-创建个只属于僵尸的结构体和用于存储僵尸的数组.
+创建个僵尸的结构体和用于存储僵尸的数组.
 ```javascript
 struct Zombie {
     string name;
@@ -37,7 +37,7 @@ struct Zombie {
 
 Zombie[] public zombies;
 ```
-新建一个用于创建僵尸的函数，为了合约的安全起见，应该将该函数设置为私有。
+新建一个用于创建僵尸的函数，为了合约的安全起见，应该将该函数设置为私有。`Storage`的变量是永久储存在区块链变量，在函数外部声明的全局变量；而`memory`变量则是临时的区块链变量，当外部函数对某合约的调用完成时，内存型的变量将被移除，好比计算机的磁盘和RAM的区别。
 ```javascript
 function _createZombie(string memory _name, uint _dna) private { 
     zombies.push(Zombie(_name, _dna));  //填充数组
@@ -93,6 +93,7 @@ require(ownerZombieCount[msg.sender] == 0);
 
 solidity中也引入了继承（Inheritance）的概念，可以将代码和逻辑拆分到不同的合约中去，便于管理，合约的继承用`is`关键字。
 ```javascript
+import "./zombiefactory.sol";
 contract ZombieFeeding is ZombieFactory {}
 ```
 
