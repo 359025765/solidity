@@ -86,12 +86,12 @@ mapping (uint => address) public zombieToOwner;
 zombieToOwner[id] = msg.sender;
 ```
 
-现在为了游戏的可玩性，我们要限制玩家不限次数的调用`createRandomZombie`函数来创建僵尸，所以我们要使用到`require`，`require`使得函数在执行过程中，当不满足条件时，停止执行。
+现在为了游戏的可玩性，我们要限制玩家调用`createRandomZombie`函数来创建僵尸，所以我们要使用到`require`，`require`使得函数在执行过程中当不满足条件时，停止执行。
 ```javascript
 require(ownerZombieCount[msg.sender] == 0);
 ```
 
-solidity中也引入了继承（Inheritance）的概念，可以将代码和逻辑拆分到不同的合约中去，便于管理，合约的继承用`is`关键字。
+solidity中也引入了继承（Inheritance）的概念，可以将代码和逻辑拆分到不同的合约中去，便于管理，合约的继承用`is`关键字。在**resource**目录下创建个`zombiefeeding.sol`文件
 ```javascript
 import "./zombiefactory.sol";
 contract ZombieFeeding is ZombieFactory {}
