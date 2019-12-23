@@ -18,6 +18,7 @@
 >本文只把跟重要的知识点相关的代码记录下来，方便加深记忆，对应的完整代码在resource目录下。
 - [Chapter1 Making the Zombie Factory](#Chapter1)
 - [Chapter2 Zombies Attack Their Victims](#Chapter2)
+- [Chapter3 Advanced Solidity Concepts](#Chapter3)
 
 # Chapter1
 建立一个名为`ZombieFactory`的智能合约，并创建个16位的DNA。
@@ -37,7 +38,7 @@ struct Zombie {
 
 Zombie[] public zombies;
 ```
-新建一个用于创建僵尸的函数，为了合约的安全起见，应该将该函数设置为私有。`Storage`的变量是永久储存在区块链变量，在函数外部声明的全局变量；而`memory`变量则是临时的区块链变量，当外部函数对某合约的调用完成时，内存型的变量将被移除，好比计算机的磁盘和RAM的区别。
+新建一个用于创建僵尸的函数，为了合约的安全起见，应该将该函数设置为私有。`storage`的变量是永久储存在区块链变量，在函数外部声明的全局变量；而`memory`变量则是临时的区块链变量，当外部函数对某合约的调用完成时，内存型的变量将被移除，好比计算机的磁盘和RAM的区别。
 ```javascript
 function _createZombie(string memory _name, uint _dna) private { 
     zombies.push(Zombie(_name, _dna));  //填充数组
@@ -96,6 +97,57 @@ solidity中也引入了继承（Inheritance）的概念，可以将代码和逻�
 import "./zombiefactory.sol";
 contract ZombieFeeding is ZombieFactory {}
 ```
+
+# Chapter3
+solidity封装了两种函数的调用方式，`interal`和`external`，`interal`类似于`private`，只是从该合同继承的合同也能访问；`external`类似于`public`，不同的是这些函数只能在合同外部调用，因为合约初始化未完成不能调用自身函数。
+```javascript
+// external
+contract A{
+    function f(){}
+}
+contract B{
+    //以`external`的方式调用另一合约中的函数
+    function callExternal(A a){
+        a.f();
+    }
+}
+// internal
+contract A{
+    //默认是public函数
+    function internalFunc() internal{}
+
+    function callFunc(){
+        //以`internal`的方式调用函数
+        internalFunc();
+    }
+}
+contract B is A{
+    //子合约中调用
+    function callFunc(){
+        internalFunc();
+    }
+}
+```
+
+函数`modify`可以用来轻易改变一个函数的行为，比如用在函数前检查某种前置条件。修改器是一种合约属性，可以被继承，同时还可以被派生的合约重写。
+```javascript
+pragma solidity ^0.4.0;
+contract Mutex {
+    bool locked;
+    modifier noReentrancy() {
+        if (locked) throw;
+        locked = true;
+        _;
+        locked = false;
+    }
+
+    function f() noReentrancy returns (uint) {
+        if (!msg.sender.call()) throw;
+        return 7;
+    }
+}
+```
+如果同一个函数有多个修改器，他们之间的空格隔开，修饰器会依次执行。
 
 
 
