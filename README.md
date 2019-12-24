@@ -131,23 +131,47 @@ contract B is A{
 
 函数`modify`可以用来轻易改变一个函数的行为，比如用在函数前检查某种前置条件。修改器是一种合约属性，可以被继承，同时还可以被派生的合约重写。
 ```javascript
-pragma solidity ^0.4.0;
-contract Mutex {
-    bool locked;
-    modifier noReentrancy() {
-        if (locked) throw;
-        locked = true;
+pragma solidity ^0.5.0;
+contract Ownable {
+    address public owner = msg.sender;
+    // 限制只有创建者才能访问
+    modifier onlyOwner(address _newOwner) {
+        if (msg.sender != _newOwner) thorw;
         _;
-        locked = false;
     }
-
-    function f() noReentrancy returns (uint) {
-        if (!msg.sender.call()) throw;
-        return 7;
+    function changeOwner(address _newOwner) onlyOwner (_newOwner) {
+        return 1;
     }
 }
 ```
 如果同一个函数有多个修改器，他们之间的空格隔开，修饰器会依次执行。
+
+`gas` 合约一经创建，每笔交易都会收取一定数量的`gas`，目的是限制执行交易所需要的工作量和交易支付手续费。EVM执行交易时，`gas`将按照特定的规则逐渐耗尽。<br/>
+**使用struct结构体来节省gas的使用**。通常使用`uint8`，`uint16`，`uint32`，etc；没有任何好处，因为`uint`无论大小如何，solidity都会保存256位存储空间。但是`struct`不一样，它会将这些变量打包在一起减少存储量。For example:
+```javascript
+struct MiniMe {
+    uint32 a;
+    uint32 b;
+    uint c;
+}
+```
+
+变量的数据位置有三种类型，`memory`，`storage`，`calldata`。前两种已经介绍过，最后一种数据位置比较特殊，一般只有外部函数的参数（不包括返回参数）被强制指定为`calldata`。这种数据位置是只读的，不会持久化到区块链。
+
+`view`函数不会消耗`gas`。因为`view`函数实际上并没有改变区块链上的任何内容，它们只负责读取数据。需要注意的是，如果从同一个`contract`中另一个不是`view`的函数调用，则仍然要`cost gas`。
+```javascript
+// 将memory于数组一起使用，在函数内部创建新的数组
+function getArray() external pure returns(uint[] memory) {
+    uint[] memory values = new uint[](3);  // memory 数组必须声明长度，后期solidity版本可能会修改
+    values[0] = 1;
+    values[1] = 2;
+    values[2] = 3;
+}
+
+```
+
+
+
 
 
 
