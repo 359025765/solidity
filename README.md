@@ -19,6 +19,7 @@
 - [Chapter1 Making the Zombie Factory](#Chapter1)
 - [Chapter2 Zombies Attack Their Victims](#Chapter2)
 - [Chapter3 Advanced Solidity Concepts](#Chapter3)
+- [Chapter4 Zombie Battle System](#Chapter4)
 
 # Chapter1
 建立一个名为`ZombieFactory`的智能合约，并创建个16位的DNA。
@@ -99,7 +100,7 @@ contract ZombieFeeding is ZombieFactory {}
 ```
 
 # Chapter3
-solidity封装了两种函数的调用方式，`interal`和`external`，`interal`类似于`private`，只是从该合同继承的合同也能访问；`external`类似于`public`，不同的是这些函数只能在合同外部调用，因为合约初始化未完成不能调用自身函数。
+solidity封装了两种函数的调用方式，`interal`和`external`，`interal`类似于`private`，只是从该合约继承的合约也能访问；`external`类似于`public`，不同的是这些函数只能在合约外部调用，因为合约初始化未完成不能调用自身函数。
 ```javascript
 // external
 contract A{
@@ -158,7 +159,6 @@ struct MiniMe {
 
 变量的数据位置有三种类型，`memory`，`storage`，`calldata`。前两种已经介绍过，最后一种数据位置比较特殊，一般只有外部函数的参数（不包括返回参数）被强制指定为`calldata`。这种数据位置是只读的，不会持久化到区块链。
 
-`view`函数不会消耗`gas`。因为`view`函数实际上并没有改变区块链上的任何内容，它们只负责读取数据。需要注意的是，如果从同一个`contract`中另一个不是`view`的函数调用，则仍然要`cost gas`。
 ```javascript
 // 将memory于数组一起使用，在函数内部创建新的数组
 function getArray() external pure returns(uint[] memory) {
@@ -168,6 +168,26 @@ function getArray() external pure returns(uint[] memory) {
     values[2] = 3;
 }
 ```
+
+# Chapter4
+至此我们来回顾一下，之前介绍的函数状态修饰符。`view`函数不会保存或更改数据；`pure`函数不仅不会将数据保存在区块链，而且也不会读取链上的任何数据，而且从`external`外部访问，这两种调用方式都不会消耗`gas`（如果从另一个函数`internal`内部调用就要消耗`gas`）。
+
+`msg.value`的值表示是向合同发送多少`ether`。`payable`标识的函数即可接受`ether`，并会把ether存在当前合约。例如:
+```javascript
+contract GetPaid is Ownable {
+    function withdraw() external onluOwner {
+        address payable _owner = address(uint160(owner()));
+        _owner.transfer(address(this).balance);  // address(this).balance 返回合同中存储的金额
+    }
+    // 同样可以使用转账将金额发送到任何以太坊地址
+    function transfer() external onluOwner {
+        uint itemFee = 0.001 ether;
+        msg.sender.transfer(msg.value - itemFee);  
+    }
+}
+```
+
+
 
 
 
