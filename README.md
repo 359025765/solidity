@@ -167,7 +167,6 @@ function getArray() external pure returns(uint[] memory) {
     values[1] = 2;
     values[2] = 3;
 }
-
 ```
 
 
