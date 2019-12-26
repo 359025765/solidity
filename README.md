@@ -192,15 +192,22 @@ contract GetPaid is Ownable {
 
 # Chapter5
 创建个ERC721合约标准，接口定义如下：
-```javascript
-event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
-    event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
 
-    function balanceOf(address _owner) external view returns (uint256); // 获取一个地址，返回改地址拥有的token数量
-    function ownerOf(uint256 _tokenId) external view returns (address); // 返回tokenid代币持有者的地址
-    function approve(address _approved, uint256 _tokenId) external payable; // 授予另一个实体代表所有者转移代币的权利。
-    function transferFrom(address _from, address _to, uint256 _tokenId) external payable; // 让代币所有者将其代币发送给另一个用户
-    
+```javascript
+contract ERC721 {
+    /* 该事件在代币被转手时得以触发。当代币所有权从某个用户转移到另个用户手上时，该事件被广播，其详细说明哪个账号发送该代币，哪个账户接收该代币，以及哪个代币被转移 */
+    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+    /* 该事件在某个用户授权从另一个用户获得代币的所有权时（即当授权被执行时）得以触发。其详细说明了哪个账户目前拥有该金币，哪个账户或许在未来获得该代币被授权转移其所有权 */
+    event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
+    // 获取一个地址，返回改地址拥有的token数量
+    function balanceOf(address _owner) external view returns (uint256);
+    // 返回tokenid代币持有者的地址
+    function ownerOf(uint256 _tokenId) external view returns (address);
+    // 授予另一个实体代表所有者转移代币的权利
+    function approve(address _approved, uint256 _tokenId) external payable; 
+    /* 转移代币的下一个方法就是使用该函数。让代币所有者将其代币发送给另一个用户。 然而只有收款账户事先被打款账户授予获得代币的权利，转账才能开始 */
+    function transferFrom(address _from, address _to, uint256 _tokenId) external payable; 
+}
 ```
 
 
