@@ -20,6 +20,7 @@
 - [Chapter2 Zombies Attack Their Victims](#Chapter2)
 - [Chapter3 Advanced Solidity Concepts](#Chapter3)
 - [Chapter4 Zombie Battle System](#Chapter4)
+- [Chapter5 ERC721 & Crypto-Collectibles](#Chapter5)
 
 # Chapter1
 建立一个名为`ZombieFactory`的智能合约，并创建个16位的DNA。
@@ -189,8 +190,18 @@ contract GetPaid is Ownable {
 
 `keccak256(abi.encodePacked(noe, msg.sender, randNoce))` 用于将给定的参数打包，可用于生成随机字符。
 
+# Chapter5
+创建个ERC721合约标准，接口定义如下：
+```javascript
+event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+    event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
 
-
+    function balanceOf(address _owner) external view returns (uint256); // 获取一个地址，返回改地址拥有的token数量
+    function ownerOf(uint256 _tokenId) external view returns (address); // 返回tokenid代币持有者的地址
+    function approve(address _approved, uint256 _tokenId) external payable; // 授予另一个实体代表所有者转移代币的权利。
+    function transferFrom(address _from, address _to, uint256 _tokenId) external payable; // 让代币所有者将其代币发送给另一个用户
+    
+```
 
 
 
