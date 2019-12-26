@@ -187,6 +187,9 @@ contract GetPaid is Ownable {
 }
 ```
 
+`keccak256(abi.encodePacked(noe, msg.sender, randNoce))` 用于将给定的参数打包，可用于生成随机字符。
+
+
 
 
 
