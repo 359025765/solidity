@@ -217,6 +217,37 @@ contract GetPaid is Ownable {
 }
 ```
 
+`assert()` 用法与`require`一样，如果结果为**false**，它将会抛出错误。不同的是`assert`不会退还`gas`。因此，`assert`适合处理代码出现严重错误的情况下使用，比如(uint溢出)。For example：
+```javascript
+function add(uint256 a, uint256 b)internal pure returns {
+    uint256 c = a + b;
+    assert(c >= a);
+    return c;
+}
+```
+
+`labary`与`contract`类似，但它们的目的是重用代码，不需要实例化，直接通过**库.函数**直接访问。使用`using A for B`来附着库A里定义的函数制定类型B。
+```javascript
+pragma solidity ^0.4.0;
+libary Set {
+    struct Data {
+        mapping(uint => bool) flags;
+    }
+    
+    function contains(Data storage self, uint val) returns(bool) {
+        return self.flags[val];
+    }
+}
+contract LibaryUsingFor {
+    using Set for Set.Data;  // 将Set附着到Set.Data上 能自动将调用对象做为第一个参数
+    Set.Data data;
+    function call() returns(bool) {
+        data.flags[2] = true;
+        return data.contains(2);  // 相当于data.contains(data, 2)
+    }
+}
+
+```
 
 
 
