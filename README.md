@@ -15,12 +15,13 @@
 `solcjs --version` 查看版本
 
 ## Solidity练习-植物大战僵尸实例
->本文只把跟重要的知识点相关的代码记录下来，方便加深记忆，对应的完整代码在resource目录下。
+>本文只把跟重要的知识点相关的代码记录下来，方便加深记忆，对应的完整代码在zombie目录下。
 - [Chapter1 Making the Zombie Factory](#Chapter1)
 - [Chapter2 Zombies Attack Their Victims](#Chapter2)
 - [Chapter3 Advanced Solidity Concepts](#Chapter3)
 - [Chapter4 Zombie Battle System](#Chapter4)
 - [Chapter5 ERC721 & Crypto-Collectibles](#Chapter5)
+- [Chapter6 Web3.js](#Chapter6)
 
 # Chapter1
 建立一个名为`ZombieFactory`的智能合约，并创建个16位的DNA。
@@ -246,8 +247,10 @@ contract LibaryUsingFor {
         return data.contains(2);  // 相当于data.contains(data, 2)
     }
 }
-
 ```
+
+# Chapter6
+
 
 
 
