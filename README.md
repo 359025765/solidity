@@ -3,6 +3,7 @@
 ## 开发语言及工具：
 * 合约开发语言：Solidity
 * 合约编译器：solc
+* 前端：web3.js
 * 在线集成环境：[Remix](https://remix.ethereum.org/)
 
 ## 安装Solidity编译器
@@ -250,6 +251,20 @@ contract LibaryUsingFor {
 ```
 
 # Chapter6
+```javascript
+// 安装web3
+//using npm
+npm install web3 
+// usdin bower 
+bower install web3
+```
+`MetaMask`是一个开源的以太坊钱包，可以存储个人私钥，在chrome扩展程序下载。
+
+要使用智能合约必须先要从区块链中获取到合约实例，获取合约实例需要用到**ABI**和**address**(合约地址)。
+
+`call`用于`view`和`pure`函数，它仅在本地节点上运行，不会在区块链上进行交易。 例如：`myContract.methods.myMethod(123).call()`
+
+`send`会改变链上的数据，它适用于非`view`和`pure`函数。例如：```myContract.methods`.myMethod(123).send()```
 
 
 
