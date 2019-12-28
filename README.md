@@ -262,9 +262,9 @@ bower install web3
 
 要使用智能合约必须先要从区块链中获取到合约实例，获取合约实例需要用到**ABI**和**address**(合约地址)。
 
-`call`用于`view`和`pure`函数，它仅在本地节点上运行，不会在区块链上进行交易。 例如：`myContract.methods.myMethod(123).call()`
+`call`用于`view`和`pure`函数，它仅在本地节点上运行，不会在区块链上进行交易，不会消耗`gas`。 例如：`myContract.methods.myMethod(123).call()`
 
-`send`会改变链上的数据，它适用于非`view`和`pure`函数。例如：```myContract.methods`.myMethod(123).send()```
+`send`会改变链上的数据，它适用于非`view`和`pure`函数，会产生`gas`费用，例如：```myContract.methods`.myMethod(123).send()```
 
 
 
