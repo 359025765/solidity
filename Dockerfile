@@ -4,7 +4,7 @@ RUN sed -i 's/http:\/\/dl-cdn.alpinelinux.org/https:\/\/mirrors.tuna.tsinghua.ed
 
 RUN apk update; \
     apk add --no-cache \
-    curl openssh tzdata \
+    curl openssh tzdata git \
     nodejs nodejs-npm
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
@@ -19,6 +19,6 @@ RUN if [ ${NPM_REGISTRY} ]; then \
 
 WORKDIR /home/app
 
-EXPOSE 22 3000
+EXPOSE 7545
 
 CMD ["node"]

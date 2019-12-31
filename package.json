@@ -1,0 +1,19 @@
+{
+  "name": "solidity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "deploy": "npm install -g solc & npm install -g ganache-cli"
+  },
+  "keywords": [],
+  "author": "chenjiaxing",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/359025765/solidity.git"
+  },
+  "dependencies": {
+    "web3": "^1.2.4"
+  }
+}

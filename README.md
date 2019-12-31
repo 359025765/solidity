@@ -6,14 +6,20 @@
 * 前端：web3.js
 * 在线集成环境：[Remix](https://remix.ethereum.org/)
 
-## 安装Solidity编译器
-`docker-compose up -d` 利用docker部署node环境
+## deploy
+```
+docker-compose up -d  //利用docker部署node环境
 
-`docker exec -it node /bin/sh` 进入容器环境
+docker exec -it node /bin/sh  //进入容器环境
 
-`npm install -g solc` 全局安装solc编译器
+npm install -g solc  //全局安装solc编译器
 
-`solcjs --version` 查看版本
+solcjs --version  //查看版本
+
+solcjs --abi filename  //获取合约abi
+
+```
+
 
 ## Solidity练习-植物大战僵尸实例
 >本文只把跟重要的知识点相关的代码记录下来，方便加深记忆，对应的完整代码在zombie目录下。
@@ -255,7 +261,7 @@ contract LibaryUsingFor {
 // 安装web3
 //using npm
 npm install web3 
-// usdin bower 
+// using bower 
 bower install web3
 ```
 `MetaMask`是一个开源的以太坊钱包，可以存储个人私钥，在chrome扩展程序下载。
