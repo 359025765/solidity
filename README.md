@@ -1,12 +1,11 @@
 # 以太坊开发学习-Solidity
 
 ## 开发语言及工具：
-* 合约开发语言：Solidity
-* 合约编译器：solc
-* 前端：web3.js
-* truffle
+* 合约开发语言: Solidity
+* 合约编译器: solc
+* front-end: web3.js vue element
+* back-end: truffle
 * ganache-cli
-* 在线集成环境：[Remix](https://remix.ethereum.org/)
 
 ## deploy
 ### 进入docker环境
