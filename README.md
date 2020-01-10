@@ -22,7 +22,7 @@
 - `migrate` 部署合约 `--reset` 重新部署全部合约
 
 ## Solidity练习-植物大战僵尸实例
->本文只把跟重要的知识点相关的代码记录下来，方便加深记忆，对应的完整代码在zombie目录下。
+>本文只把跟重要的知识点相关的代码记录下来，方便加深记忆，对应的完整代码在contracts目录下。
 - [Chapter1 Making the Zombie Factory](#Chapter1)
 - [Chapter2 Zombies Attack Their Victims](#Chapter2)
 - [Chapter3 Advanced Solidity Concepts](#Chapter3)
