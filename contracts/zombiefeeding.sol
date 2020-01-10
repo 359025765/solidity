@@ -1,4 +1,4 @@
-pragma solidity >=0.5.0 <0.6.0;
+pragma solidity >=0.4.21 <0.7.0;
 
 import "./zombiefactory.sol";
 
@@ -39,7 +39,6 @@ contract ZombieFeeding is ZombieFactory {
 	}
 	
 	function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) internal onlyOwnerOf(_zombieId) {
-		require(msg.sender == zombieToOwner[_zombieId]);
 		Zombie storage myZombie = zombies[_zombieId];
 		require(_isReady(myZombie));
 		_targetDna = _targetDna % dnaModulus;

@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity >=0.4.21 <0.7.0;
 
 import "./ownable.sol";
 import "./safemath.sol";
@@ -27,7 +27,7 @@ contract ZombieFactory is Ownable {
     Zombie[] public zombies;
 
     mapping (uint => address) public zombieToOwner;
-    mapping (address => uint) ownerZombieCount;
+    mapping (address => uint) public ownerZombieCount;
 
     function _createZombie(string memory _name, uint _dna) internal {
         zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime), 0, 0));

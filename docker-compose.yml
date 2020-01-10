@@ -9,6 +9,7 @@ services:
     volumes:
       - ./:/home/app/
     ports:
-      - "7545:7545"
+      - "8080:8080"
+      - "8545:8545"
     tty: true
 

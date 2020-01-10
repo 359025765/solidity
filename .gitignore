@@ -1,6 +1,4 @@
-solidity/web3/node_modules/
-node_modules/
 package-lock.json
-contracts/*.abi
+contracts/build/
+build/
 node_modules/
-cryptozombies_api.js

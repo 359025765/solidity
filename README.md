@@ -4,22 +4,23 @@
 * 合约开发语言：Solidity
 * 合约编译器：solc
 * 前端：web3.js
+* truffle
+* ganache-cli
 * 在线集成环境：[Remix](https://remix.ethereum.org/)
 
 ## deploy
-```
-docker-compose up -d  //利用docker部署node环境
+### 进入docker环境
+  - `docker-compose up -d` 利用docker部署node环境
+  - `docker exec -it node /bin/sh` 进入容器终端
 
-docker exec -it node /bin/sh  //进入容器环境
-
-npm install -g solc  //全局安装solc编译器
-
-solcjs --version  //查看版本
-
-solcjs --abi filename  //获取合约abi
-
-```
-
+### 前期工作
+1. 启动**ganache** `ganache-cli -h 0.0.0.0`
+- `-h` 或 `--hostname` 设置监听主机，默认值同NodeJS的server.listen()
+- `-g` 设定Gas价格，默认值为20000000000
+- `-p` 设置监听端口，默认值为8545
+2. 重新开一个终端窗口进入容器，执行`truffle console` 
+- `compile` 编译合约 `--all` 重新编译全部合约
+- `migrate` 部署合约 `--reset` 重新部署全部合约
 
 ## Solidity练习-植物大战僵尸实例
 >本文只把跟重要的知识点相关的代码记录下来，方便加深记忆，对应的完整代码在zombie目录下。

@@ -1,10 +1,10 @@
-pragma solidity ^0.6.0;
+pragma solidity >=0.4.21 <0.7.0;
 
 import "./zombiefeeding.sol";
 
 contract ZombieHelper is ZombieFeeding {
     uint levelUpFee = 0.001 ether;
-
+    
     modifier aboveLevel(uint _level, uint _zombieId) {
         require(zombies[_zombieId].level >= _level, '等级太低，不允操作');
         _;
