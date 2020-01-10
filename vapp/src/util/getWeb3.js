@@ -12,7 +12,6 @@ let getWeb3 = new Promise(function (resolve) {
     } catch (error) {
         throw (error);
     }
-    window.web3 = web3;
     resolve({
         web3() {
             return web3;
