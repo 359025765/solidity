@@ -1,6 +1,10 @@
 
-const Book = artifacts.require("Book")
+const ZombieFactory = artifacts.require("ZombieFactory");
+const ZombieFeeding = artifacts.require("ZombieFeeding");
+const ZombieHelper = artifacts.require("ZombieHelper");
 
 module.exports = function(deployer) {
-  deployer.deploy(Book);
+  deployer.deploy(ZombieFactory);
+  deployer.deploy(ZombieFeeding);
+  deployer.deploy(ZombieHelper);
 };

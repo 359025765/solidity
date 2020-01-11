@@ -16,11 +16,13 @@ export const store = new Vuex.Store({
             web3Copy.coinbase = result.coinbase;
             web3Copy.networkId = result.netWorkId;
             web3Copy.web3Instance = result.web3;
-            state.web3 = web3Copy;
+            state.web3Instance = result.web3;
         },
         getContractInstance(state, payload) {
-            console.log('Contract instance:', payload);
-            state.contract = () => payload;
+            console.log(payload.name);
+            let contract = payload.name;
+            state.contracts[contract] = () => payload;
+            console.log('Contracts: ', payload);
         },
         getAccountInstance(state, payload) {
             console.log('Account is:', payload[0]);
@@ -34,11 +36,18 @@ export const store = new Vuex.Store({
                 commit('getWeb3Instance', r);
             }).catch(e => console.error('error in action getWeb3Instance', e));
         },
-        async getContractInstance({commit}, contract) {
-            await getContract(contract).then(r => {
-                commit('getContractInstance', r);
-            }).catch(e => console.error('error in action getContractInstance', e));
+        async getContractInstance({commit}) {
+            let contracts = state.contracts;
+            for (let contract in contracts) {
+                if (!contracts.contract) {
+                    await getContract(contract).then(r => {
+                        r.name = contract;
+                        commit('getContractInstance', r);
+                    }).catch(e => console.error('error in action getContractInstance', e));
+                }
+            }
         },
+
         async getAccount({commit}) {
             try {
                 const web3 = state.web3.web3Instance();

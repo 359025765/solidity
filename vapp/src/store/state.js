@@ -4,6 +4,10 @@ export default {
         coinbase: null,
         web3Instance: null
     },
-    contract: {},
-    account: {}
+    contracts: {
+        ZombieFactory: null,
+        ZombieFeeding: null,
+        ZombieHelper: null
+    },
+    account: ''
 };
