@@ -1,20 +1,22 @@
 import Web3 from 'web3';
 
-let getWeb3 = new Promise(function (resolve) {
-    let web3;
-    try {
-        if (window.ethereum) {
-            web3 = new Web3(window.ethereum);
-            window.ethereum.enable();
-        } else {
-            wbe3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+export default new Promise(async (resolve, reject) => {
+    let web3Provider;
+    if (window.ethereum) {
+        web3Provider = window.ethereum;
+        try {
+            await window.ethereum.enable();
+        } catch(err) {
+            reject('user denied account access');
         }
-    } catch (error) {
-        throw (error);
+    } else if (window.web3) {
+        web3Provider = web3.currentProvider;
+    } else {
+        web3Provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
     }
     resolve({
         web3() {
-            return web3;
+            return new Web3(web3Provider);
         }
     });
 }).then(r => {
@@ -29,18 +31,4 @@ let getWeb3 = new Promise(function (resolve) {
             }
         });
     });
-}).then(r => {
-    return new Promise(function (resolve, reject) {
-        r.web3().eth.getCoinbase((err, coinbase) => {
-            if (err) {
-                reject(new Error('Unable to retrieve coinbase'));
-            } else {
-                coinbase = r.web3().utils.toChecksumAddress(coinbase);
-                console.log('retrieve coinbase: ' + coinbase);
-                r = Object.assign({}, r, { coinbase });
-                resolve(r);
-            }
-        });
-    });
 });
-export default getWeb3;

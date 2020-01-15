@@ -5,8 +5,7 @@ RUN sed -i 's/http:\/\/dl-cdn.alpinelinux.org/https:\/\/mirrors.tuna.tsinghua.ed
 RUN apk update; \
     apk add --no-cache \
     make curl git g++ tzdata \
-    python3 nodejs nodejs-npm \
-    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi &&
+    python3 nodejs nodejs-npm 
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
@@ -18,7 +17,8 @@ RUN if [ ${NPM_REGISTRY} ]; then \
     ;fi
 
 RUN npm install -g truffle \
-    npm install -g ganache-cli
+    npm install -g ganache-cli \
+    npm install -g solc
 
 WORKDIR /home/app
 

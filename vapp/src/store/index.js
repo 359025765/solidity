@@ -13,16 +13,14 @@ export const store = new Vuex.Store({
         getWeb3Instance(state, payload) {
             console.log('commited result to registerWeb3Instance mutation');
             const result = payload; let web3Copy = state.web3;
-            web3Copy.coinbase = result.coinbase;
             web3Copy.networkId = result.netWorkId;
             web3Copy.web3Instance = result.web3;
             state.web3Instance = result.web3;
         },
         getContractInstance(state, payload) {
-            console.log(payload.name);
             let contract = payload.name;
             state.contracts[contract] = () => payload;
-            console.log('Contracts: ', payload);
+            console.log('Contracts: ', contract);
         },
         getAccountInstance(state, payload) {
             console.log('Account is:', payload[0]);
@@ -47,7 +45,6 @@ export const store = new Vuex.Store({
                 }
             }
         },
-
         async getAccount({commit}) {
             try {
                 const web3 = state.web3.web3Instance();
